@@ -29,13 +29,10 @@ class AboutMe extends Component {
                 .then(data => {
                     this.setState(data)
                     localStorage.setItem("hero", JSON.stringify({info: data, timestamp: Date.now()}));
-                })
+                    console.log('fetch')})
         } else {
-            this.setState({
-                hero: {
-                    info:hero.info
-                }
-            });
+            this.setState(
+               hero.info);
         }
     }
 
