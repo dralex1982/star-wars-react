@@ -1,52 +1,64 @@
 import React, {Component} from 'react';
 import {logDOM} from "@testing-library/react";
+import {url} from "../utils/constants";
+import {countOfEpisodes} from "../utils/constants";
+import data from "bootstrap/js/src/dom/data";
 
 class FarGalaxy extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isLoading: true,
-            filmInfo: {}
         }
     }
 
     componentDidMount() {
-        const min = 1;
-        const max = 6;
-        const rand = Math.floor(Math.random() * (max - min + 1) + min);
-        fetch(`https://sw-info-api.herokuapp.com//v1/films/${rand}`)
-            .then(response => response.json())
-            .then(data => this.setState(
-                {
-                    isLoading: false,
-                    filmInfo: {
-                        title: data.title,
-                        episode: data.episode_id,
-                        release_date: data.release_date,
-                        opening_crawl: data.opening_crawl,
-                    }
-                }
-            )).catch( e =>
+        const title = sessionStorage.getItem('title');
+        const opening_crawl = sessionStorage.getItem('opening_crawl');
+        if (title && opening_crawl) {
             this.setState(
                 {
-                    isLoading: true
+                    isLoading: false,
+                    title,
+                    opening_crawl
                 }
             )
-        )
+        } else {
+            const episode = Math.floor(Math.random() * countOfEpisodes + 1);
+            fetch(`${url}films/${episode}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.setState(
+                        {
+                            isLoading: false,
+                            title: data.title,
+                            opening_crawl: data.opening_crawl
+
+                        }
+                    )
+                    sessionStorage.setItem('title', data.title);
+                    sessionStorage.setItem('opening_crawl', data.opening_crawl);
+                }).catch(e =>
+                this.setState(
+                    {
+                        isLoading: true
+                    }
+                )
+            )
+        }
     }
 
     render() {
         if (this.state.isLoading)
             return (
-                <div className="farGalaxy">Error data. No information</div>
+                <div className="farGalaxy">Loading...</div>
             )
         else
             return (
                 <div className="farGalaxy">
-                    <p>title: {this.state.filmInfo.title}</p>
-                    <p>episode: {this.state.filmInfo.episode}</p>
-                    <p>release_date: {this.state.filmInfo.release_date}</p>
-                    <p>opening_crawl: {this.state.filmInfo.opening_crawl}</p>
+                    <h1 style={{textTransform: 'uppercase', textAlign: 'center'}}>
+                        {this.state.title}</h1>
+                    <p>{this.state.opening_crawl}</p>
                 </div>
             )
     }
