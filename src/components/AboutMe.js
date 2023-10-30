@@ -9,8 +9,6 @@ class AboutMe extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hero:{},
-            info: "",
             "name": null,
             "birth_year": null,
             "gender": null,
@@ -24,18 +22,20 @@ class AboutMe extends Component {
 
     componentDidMount() {
         const hero = JSON.parse(localStorage.getItem('hero'));
-        console.log(hero.info);
 
         if (!hero || (Date.now() - hero.timestamp) > period) {
             fetch(`${url}peoples/1`)
                 .then(response => response.json())
                 .then(data => {
-                    this.setState({hero: {info: data}})
+                    this.setState(data)
                     localStorage.setItem("hero", JSON.stringify({info: data, timestamp: Date.now()}));
                 })
         } else {
-            this.setState(hero.info);
-            console.log(this.hero);
+            this.setState({
+                hero: {
+                    info:hero.info
+                }
+            });
         }
     }
 
@@ -44,14 +44,14 @@ class AboutMe extends Component {
     render() {
         return (
             <div>
-                <p>name: {}</p>
-                <p>birth_year: null</p>
-                <p>gender: null</p>
-                <p>eye_color: null</p>
-                <p>hair_color: null</p>
-                <p>skin_color: "string"</p>
-                <p>height: null</p>
-                <p>mass: null</p>
+                <h2>name: {this.state.name}</h2>
+                <p>birth_year: {this.state.birth_year}</p>
+                <p>gender: {this.state.gender}</p>
+                <p>eye_color: {this.state.eye_color}</p>
+                <p>hair_color: {this.state.hair_color}</p>
+                <p>skin_color: {this.state.skin_color}</p>
+                <p>height: {this.state.height}</p>
+                <p>mass: {this.state.mass}</p>
             </div>
         );
     }
