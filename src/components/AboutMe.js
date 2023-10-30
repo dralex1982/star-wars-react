@@ -14,7 +14,7 @@ class AboutMe extends Component {
             "gender": null,
             "eye_color": null,
             "hair_color": null,
-            "skin_color": "string",
+            "skin_color": null,
             "height": null,
             "mass": null
         }
@@ -29,10 +29,9 @@ class AboutMe extends Component {
                 .then(data => {
                     this.setState(data)
                     localStorage.setItem("hero", JSON.stringify({info: data, timestamp: Date.now()}));
-                    console.log('fetch')})
+                })
         } else {
-            this.setState(
-               hero.info);
+            this.setState(hero.info);
         }
     }
 
