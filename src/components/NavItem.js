@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const NavItem = ({text, changePage}) => {
     return <li
         className="nav-item btn btn-danger border-light rounded-pill mx-1 common-button"

@@ -8,9 +8,10 @@ import friend7 from '../styles/images/friend7.jpg';
 import friend8 from '../styles/images/friend8.jpg';
 import friend9 from '../styles/images/friend9.jpg';
 
-export const url = 'https://sw-info-api.herokuapp.com//v1/';
+export const url = 'https:/sw-info-api.herokuapp.com/v1/';
 export const countOfEpisodes = 6;
 export const navItems = ['Home', 'About me', 'Star wars', 'Contact'];
 export const friends = [friend1, friend2, friend3, friend4, friend5, friend6, friend7, friend8, friend9];
 
-export const period = 1000 * 60 * 60 * 24 * 30; //миллисекунд в 30 днях
+export const period30 = 1000 * 60 * 60 * 24 * 30; //миллисекунд в 30 днях
+export const period10 = 1000 * 60 * 60 * 24 * 10; //миллисекунд в 10 днях

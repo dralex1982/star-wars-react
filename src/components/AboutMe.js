@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
-import {period} from "../utils/constants";
-import data from "bootstrap/js/src/dom/data";
-import {url} from "../utils/constants";
-import hero from "./Hero";
-import {logDOM} from "@testing-library/react";
+import {period30, url} from "../utils/constants";
 
 class AboutMe extends Component {
     constructor(props) {
@@ -23,11 +19,22 @@ class AboutMe extends Component {
     componentDidMount() {
         const hero = JSON.parse(localStorage.getItem('hero'));
 
-        if (!hero || (Date.now() - hero.timestamp) > period) {
+        if (!hero || (Date.now() - hero.timestamp) > period30) {
             fetch(`${url}peoples/1`)
                 .then(response => response.json())
                 .then(data => {
-                    this.setState(data)
+                    this.setState(
+                        {
+                            "name": data.name,
+                            "birth_year": data.birth_year,
+                            "gender": data.gender,
+                            "eye_color": data.eye_color,
+                            "hair_color": data.hair_color,
+                            "skin_color": data.skin_color,
+                            "height": data.height,
+                            "mass": data.mass
+                        }
+                    )
                     localStorage.setItem("hero", JSON.stringify({info: data, timestamp: Date.now()}));
                 })
         } else {
