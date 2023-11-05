@@ -7,7 +7,7 @@ class Contact extends Component {
         super(props);
         this.state =
             {
-                planets: []
+                planets: ['loading...']
             }
     }
 
@@ -17,14 +17,12 @@ class Contact extends Component {
         if (!planets || (Date.now() - planets.timestamp) > period10) {
             fetch(`${url}planets`)
                 .then(response => response.json())
-                .then(data => data.map(item => item.name))
-                .then(data => {
-                    this.setState({
-                        names: data
-                    });
+                .then(array => array.map(item => item.name))
+                .then(planets => {
+                    this.setState({planets});
                     localStorage.setItem('planets', JSON.stringify(
                         {
-                            names: data,
+                            names: planets,
                             timestamp: Date.now()
                         }));
                 });
