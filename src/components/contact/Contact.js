@@ -17,24 +17,24 @@ class Contact extends Component {
         if (!planets || (Date.now() - planets.timestamp) > period10) {
             fetch(`${url}planets`)
                 .then(response => response.json())
+                .then(data => data.map(item => item.name))
                 .then(data => {
-                    this.setState(
-                        {
-                            names: data.map(item => item.name)
-                        });
+                    this.setState({
+                        names: data
+                    });
                     localStorage.setItem('planets', JSON.stringify(
                         {
-                            names: data.map(item => item.name),
+                            names: data,
                             timestamp: Date.now()
                         }));
-                })
+                });
         } else {
-            this.setState(planets.names);
-            console.log(this.state)
+            this.setState({planets: planets.names});
         }
     }
 
     render() {
+        console.log(this.state);
         return (
             <div className={"container"}>
                 <form onSubmit={e => e.preventDefault()}>
@@ -44,7 +44,8 @@ class Contact extends Component {
                     <input type={"text"} id={"lname"} name={"lastname"} placeholder={"Your last name..."}></input>
                     <label>Planet</label>
                     <select id={"planet"} name={"planet"}>
-                        {this.state.names.map((item, index) => <option key={index} value={item}>{item}</option>
+                        {this.state.planets.map((item, index) =>
+                            <option key={index} value={item}>{item}</option>
                         )}
                     </select>
                     <label>Subject</label>
