@@ -18,7 +18,8 @@ class App extends Component {
         return (
             <div className="container-fluid">
                 <starWarsContext.Provider value={{
-                    changePage: this.changePage
+                    changePage: this.changePage,
+                    activePage: this.state.activePage
                 }}>
                     <Header/>
                     <Main page={this.state.activePage}/>
