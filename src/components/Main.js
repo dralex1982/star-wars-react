@@ -6,8 +6,8 @@ import Contact from "./contact/Contact";
 import Home from "./Home";
 import {starWarsContext} from "../utils/starWarsContext";
 
-const Main = ({page}) => {
-
+const Main = () => {
+const {page} = useContext(starWarsContext)
     switch (page){
         case navItems[1]: return <AboutMe/>
         case navItems[2]: return <StarWars/>

@@ -27,12 +27,7 @@ const FarGalaxy = () => {
                     )
                     sessionStorage.setItem('title', data.title);
                     sessionStorage.setItem('opening_crawl', data.opening_crawl);
-                }).catch(e =>
-                this.setState(
-                    {
-                        isLoading: true
-                    }
-                )
+                }).catch(e => setData(({...data, isLoading: true}))
             )
         }
     }, []);
