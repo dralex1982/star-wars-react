@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import main from '../styles/images/main.jpg'
+import {starWarsContext} from "../utils/starWarsContext";
+import {friends} from "../utils/constants";
 
 const Hero = () => {
+    const {heroFromPath} = useContext(starWarsContext)
+
     return (
         <section className="float-start w-25 my-1 mx-3">
-            <img src={main} className="w-100"/>
+            <img src={friends[heroFromPath].img} className="w-100" alt={friends[heroFromPath].name}/>
         </section>
     );
 };
