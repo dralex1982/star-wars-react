@@ -9,8 +9,8 @@ const Friends = () => {
     return (
         <section className="float-end w-50 border border-light rounded-bottom-3 row m-1">
             <h3 className="text-center col-12 text-uppercase">Friends</h3>
-            {characters.filter(item=> item !==heroFromPath).map((item, index) =>
-                <Friend key={index} item={item} pos={index+1}/>)}
+            <div>{characters.filter(item => item !== heroFromPath).map((item, index) =>
+                <Friend key={index} item={item} pos={index + 1}/>)}</div>
         </section>
     );
 };

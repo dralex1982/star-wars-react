@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {characters, defaultHero, friends, period30, url} from "../utils/constants";
+import {starWarsContext} from "../utils/starWarsContext";
 
 const AboutMe = (props) => {
+    const {heroFromPath} = useContext(starWarsContext);
     const [stats, setStats] = useState({
         "name": null,
         "birth_year": null,
@@ -14,6 +16,7 @@ const AboutMe = (props) => {
     });
 
     useEffect(() => {
+
         let key = props.match.params.heroId;
         if (!characters.includes(key))
             key = defaultHero;
