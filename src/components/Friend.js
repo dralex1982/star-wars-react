@@ -13,8 +13,8 @@ const Friend = ({item, pos}) => {
     else if (pos == 9)
         style += ' right';
     return <Link to={`/${navItems[0].route}/${item}`}>
-        <img onClick={handleClick} className={style} src={friends[item].img}
-             alt={friends[item].name}/>
+        <img className={style} onClick={handleClick}
+             src={friends[item].img} alt={friends[item].name}/>
     </Link>
 };
 
