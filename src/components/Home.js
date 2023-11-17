@@ -3,17 +3,21 @@ import Hero from "./Hero";
 import Friends from "./Friends";
 import FarGalaxy from "./FarGalaxy";
 import {starWarsContext} from "../utils/starWarsContext";
-import {characters, defaultHero} from "../utils/constants";
+import {characters, defaultHero, navItems} from "../utils/constants";
+import {useNavigate, useParams} from "react-router-dom";
 
 const Home = (props) => {
     const {setHeroFromPath} = useContext(starWarsContext);
+    let {heroId} = useParams();
+    const navigate = useNavigate()
 
     useEffect(() => {
-        let key = props.match.params.heroId;
-        if (!characters.includes(key))
-            key = defaultHero;
-        setHeroFromPath(key);
-    }, []);
+        if (!characters.includes(heroId)) {
+            navigate(`/${navItems[0].route}/${defaultHero}`);
+            return;
+        } else
+            setHeroFromPath(heroId);
+    }, [heroId]);
     return (
         <div className="clearfix">
             <Hero/>

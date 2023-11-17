@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {characters, friends} from "../utils/constants";
+import {characters} from "../utils/constants";
 import Friend from "./Friend";
 import {starWarsContext} from "../utils/starWarsContext";
 

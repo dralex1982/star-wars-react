@@ -1,21 +1,22 @@
 import React, {useContext} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {friends, navItems} from "../utils/constants";
 import {starWarsContext} from "../utils/starWarsContext";
 
 
 const Friend = ({item, pos}) => {
     const {setHeroFromPath} = useContext(starWarsContext);
-    const handleClick = () => setHeroFromPath(item);
+    const navigate = useNavigate();
     let style = "col-4 p-1";
-    if (pos == 7)
+    if (pos === 7)
         style += ' left';
-    else if (pos == 9)
+    else if (pos === 9)
         style += ' right';
-    return <Link to={`/${navItems[0].route}/${item}`}>
-        <img className={style} onClick={handleClick}
-             src={friends[item].img} alt={friends[item].name}/>
-    </Link>
+
+
+    return <img className={style}
+                onClick={()=> navigate(`/${navItems[0].route}/${item}`)}
+                src={friends[item].img} alt={friends[item].name}/>
 };
 
 export default Friend;

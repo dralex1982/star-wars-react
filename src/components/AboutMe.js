@@ -1,9 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {characters, defaultHero, friends, period30, url} from "../utils/constants";
+import {characters, defaultHero, friends, navItems, period30, url} from "../utils/constants";
 import {starWarsContext} from "../utils/starWarsContext";
+import {useNavigate, useParams} from "react-router-dom";
 
 const AboutMe = (props) => {
     const {heroFromPath} = useContext(starWarsContext);
+    let {heroId} = useParams();
+    const navigate = useNavigate();
+
     const [stats, setStats] = useState({
         "name": null,
         "birth_year": null,
@@ -17,14 +21,15 @@ const AboutMe = (props) => {
 
     useEffect(() => {
 
-        let key = props.match.params.heroId;
-        if (!characters.includes(key))
-            key = defaultHero;
+        if (!characters.includes(heroId)) {
+            navigate(`/${navItems[1].route}/${defaultHero}`);
+            return;
+        }
 
-        const hero = JSON.parse(localStorage.getItem(key));
+        const hero = JSON.parse(localStorage.getItem(heroId));
 
         if (!hero || (Date.now() - hero.timestamp) > period30) {
-            fetch(friends[key].url)
+            fetch(friends[heroId].url)
                 .then(response => response.json())
                 .then(data => {
                     setStats(
@@ -39,11 +44,11 @@ const AboutMe = (props) => {
                             "mass": data.mass
                         }
                     )
-                    localStorage.setItem(key, JSON.stringify({info: data, timestamp: Date.now()}));
+                    localStorage.setItem(heroId, JSON.stringify({info: data, timestamp: Date.now()}));
                 })
         } else
             setStats(hero.info);
-        props.setHeroFromPath(key);
+        props.setHeroFromPath(heroId);
     }, [])
 
     //hero = {info: {name:"", mass:""}, timestamp: 1111111111}
