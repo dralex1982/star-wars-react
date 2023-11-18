@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {characters, defaultHero, friends, navItems, period30, url} from "../utils/constants";
-import {starWarsContext} from "../utils/starWarsContext";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
+import {withHeroId} from "../HOC/withHeroId";
 
-const AboutMe = (props) => {
-    const {heroFromPath} = useContext(starWarsContext);
+const AboutMe = () => {
+
     let {heroId} = useParams();
-    const navigate = useNavigate();
+
 
     const [stats, setStats] = useState({
         "name": null,
@@ -20,11 +20,6 @@ const AboutMe = (props) => {
     });
 
     useEffect(() => {
-
-        if (!characters.includes(heroId)) {
-            navigate(`/${navItems[1].route}/${defaultHero}`);
-            return;
-        }
 
         const hero = JSON.parse(localStorage.getItem(heroId));
 
@@ -48,7 +43,6 @@ const AboutMe = (props) => {
                 })
         } else
             setStats(hero.info);
-        props.setHeroFromPath(heroId);
     }, [])
 
     //hero = {info: {name:"", mass:""}, timestamp: 1111111111}
@@ -67,4 +61,5 @@ const AboutMe = (props) => {
     );
 }
 
-export default AboutMe;
+// export default withHeroId(AboutMe, navItems[1].route);
+export default withHeroId(navItems[1].route)(AboutMe);
