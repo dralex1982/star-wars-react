@@ -1,12 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {characters, defaultHero, friends, navItems, period30, url} from "../utils/constants";
+import React, {useEffect, useState} from 'react';
+import {friends, navItems, period30} from "../utils/constants";
 import {useParams} from "react-router-dom";
 import {withHeroId} from "../HOC/withHeroId";
+import {withErrorpage} from "../HOC/withErrorpage";
 
 const AboutMe = () => {
 
     let {heroId} = useParams();
-
 
     const [stats, setStats] = useState({
         "name": null,
@@ -43,7 +43,7 @@ const AboutMe = () => {
                 })
         } else
             setStats(hero.info);
-    }, [])
+    },[])
 
     //hero = {info: {name:"", mass:""}, timestamp: 1111111111}
 
@@ -62,4 +62,5 @@ const AboutMe = () => {
 }
 
 // export default withHeroId(AboutMe, navItems[1].route);
-export default withHeroId(navItems[1].route)(AboutMe);
+// export default withHeroId(navItems[1].route)(AboutMe);
+export default withErrorpage(navItems[1].route)(AboutMe);

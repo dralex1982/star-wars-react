@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import main from '../styles/images/main.jpg'
 import {starWarsContext} from "../utils/starWarsContext";
 import {friends} from "../utils/constants";
 

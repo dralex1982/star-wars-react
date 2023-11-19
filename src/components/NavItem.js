@@ -9,11 +9,8 @@ const NavItem = ({text}) => {
     let route = `/${text.route}`;
     if (text.route === navItems[0].route || text.route === navItems[1].route)
         route += `/${heroFromPath}`;
-    return <Link
-        className="nav-item btn btn-danger border-light rounded-pill mx-1 common-button"
-        to={route}>
-        {text.title}
-    </Link>;
+    return <Link className="nav-item btn btn-danger border-light rounded-pill mx-1 common-button"
+                 to={route}>{text.title}</Link>;
 };
 
 export default NavItem;
